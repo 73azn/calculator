@@ -1,49 +1,8 @@
 
-numbers = ["0","1","2","3","4","5","6","7","8","9"]
+const numbers = ["0","1","2","3","4","5","6","7","8","9"]
+const op = ["÷","x","-","+","=","AC"]
 
 
-function updateExpressions(expressions, index, result) {
-    if (index >= expressions.length) return expressions;
-    
-    // Replace occurrences of the solved expression in the next expressions
-    const updatedExpressions = expressions.map((expr, i) => {
-        if (i === index + 1) {
-            // Replace the solved expression with its result and remove parentheses
-            return expr.replace(`(${expressions[index]})`, result);
-        }
-        return expr;
-    });
-
-    return updatedExpressions;
-}
-
-
-
-
-function brackestsBreaker(arg,arr){
-
-    if(arg.includes("(")){
-        arg = arg.substring(arg.indexOf("(")+1,arg.lastIndexOf(")"))
-        arr.push(arg)
-        return brackestsBreaker(arg,arr)
-    }
-    
-
-    return math.caluclate(solveBracket(arr))
-
-}
-
-function solveBracket(arr){
-    
-    arr.reverse()
-    arr.forEach((item , index) => {
-        const result = math.caluclate(item)
-        const temp = updateExpressions(arr,index,result)
-
-        arr = temp
-    });
-    return arr[arr.length-1]
-}
 /*
 base case if the index == the len of the string return 
 
@@ -53,9 +12,7 @@ if entered close == fasle  unitle didect ( in the closing
 */
 
 function numbersCorrector(str){
-    if(str.includes("(")){
-        
-    }
+
 
     builder = []
 let ss = str.split("")
@@ -63,7 +20,7 @@ let ss = str.split("")
 ss.reduce((prv , cur,index)=>{
 
     if(index == 1){ builder.push(prv)}
-
+    // if(op.includes(prv) && op.includes(cur))
     if(numbers.includes(cur)) {builder.pop();prv +=cur }
 
    
@@ -74,6 +31,7 @@ ss.reduce((prv , cur,index)=>{
     }
 
 builder.push(prv)
+
 return prv
 
 })
@@ -88,8 +46,21 @@ builder = builder.map(function(item) {
 
 })
 
+builder = builder.map((item,index,self)=>{
     
+    if(item === ''&&self[index+1] ==="-"){
 
+        self[index+2] = -self[index+2]
+    }
+ 
+
+    return item
+})
+
+
+
+    
+console.log(builder)
 return builder
 }
 
@@ -113,9 +84,9 @@ const math={
             return math.select(arr)
         }
 
-        if(arr.includes("/")) index = arr.indexOf("/")
+        if(arr.includes("÷")) index = arr.indexOf("/")
 
-        else if(arr.includes("*")) index = arr.indexOf("*") 
+        else if(arr.includes("x")) index = arr.indexOf("*") 
         
         let start = index -1
         let end = index +2
@@ -136,19 +107,61 @@ const math={
        
         if(arr[1] === "+"){return math.add(arr[0],arr[2])}
         if(arr[1] === "-"){return math.subtract(arr[0],arr[2])}
-        if(arr[1] === "/"){return math.divide(arr[0],arr[2])}
-        if(arr[1] === "*"){return math.multiply(arr[0],arr[2])}
+        if(arr[1] === "÷"){return math.divide(arr[0],arr[2])}
+        if(arr[1] === "x"){return math.multiply(arr[0],arr[2])}
     }
 
     ,caluclate: (text)=>{
 
         let arr = numbersCorrector(text)
-        return math.eval(arr)
+        let val = math.eval(arr)
+        if(isNaN(val)) return "Error"
+        return val
     }
 }
 
-let temp = "1+((5+9)+9-2+5-8)"
+const display = document.querySelector(".display")
+const numberCon = document.querySelector(".func-op")
 
-temp = brackestsBreaker(temp,[])
+const button = document.querySelectorAll("button")
 
-console.log(temp)
+function loader(){
+
+    op.forEach((number) =>{
+
+        const btn = document.createElement("button")
+
+       
+        btn.textContent = number
+        btn.addEventListener("click",(e)=>{
+            let val = e.target.textContent
+            
+            if(val == "AC"){clear()}
+            else if (val =="=")(display.textContent = math.caluclate(display.textContent))
+            else display.textContent += val
+        })
+        numberCon.appendChild(btn)
+
+    })
+}
+
+const clear = () =>{
+
+    display.textContent = ""
+}
+
+loader()
+
+
+
+button.forEach((item)=>{
+
+
+    item.addEventListener("click",(e)=>{
+
+        let value = e.target.textContent
+       
+        {display.textContent += value}
+
+    })
+})

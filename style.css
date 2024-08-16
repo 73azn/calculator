@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Silkscreen", sans-serif;
+}
+
+body h1{
+    color: green;
+}
+
+
+
+body{
+    margin:  0  ;
+    padding: 100px 0;
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    align-items: center;
+    height : 100%;
+    background: #1b352a;
+   
+  
+}
+
+.calculator{
+    display: flex;
+    flex-direction: column;
+    border: 13px solid black;
+    border-radius: 5px;
+    height: 100%;
+    width:10%;
+    min-width: 390px;
+    max-width: 400px;
+
+   
+}
+
+.calculator h1{
+    color: black;
+}
+
+#buttons-container{
+    background-color: black;
+    padding: 10px 20px;
+    height: 80%;
+    display: flex;
+   
+}
+
+
+#display{
+    background-color: #456454;
+    height: 20%;
+    border: 5px black;
+    display: flex; 
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+
+}
+
+.numbers{
+   
+    background-color: black;
+    display: flex;
+    flex-wrap: wrap;
+   flex: 2;
+   
+    }
+
+.func-op{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: black;
+    padding-bottom: 0;
+    flex: 1;
+}
+
+button{
+    height:50px;
+    width:93px;
+    margin: 1px;
+    border-radius: 0;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.block{
+    width: 10px;
+    height: 50px;
+    background-color: #f0f8ff00;
+    animation: blink-bg 1s infinite;
+}
+
+
+
+@keyframes blink-bg {
+   
+    50% {
+      background-color: #f0f8ff99; /* Midway background color */
+    }
+    100% {
+      background-color: #f0f8ff10; /* Return to initial color */
+    }
+  }
+
+
